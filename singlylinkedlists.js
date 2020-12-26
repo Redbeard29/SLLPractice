@@ -118,6 +118,48 @@ class SinglyLinkedList{
         this.length ++;
         return true;
     }
+    //Creating the .remove function
+    remove(index){
+        if(index < 0 || index >= this.length){
+            return undefined;
+        }
+        if(index === this.length - 1){
+            return this.pop();
+        }
+        if(index === 0){
+            return this.shift();
+        }
+        var prevNode = this.get(index - 1);
+        var removed = prevNode.next;
+        prevNode.next = removed.next;
+        this.length --;
+        return removed;
+    }
+    //Creating a .print function in order to see every value in my linked list when reversing it 
+    print(){
+        var arr = [];
+        var current = this.head;
+        while(current){
+            arr.push(current.val);
+            current = current.next;
+        }
+        console.log(arr);
+    }
+    //Creating the .reverse function
+    reverse(){
+        var current = this.head;
+        this.head = this.tail;
+        this.tail = current;
+        var prev = null;
+        var next = null;
+        for(var x = 0; x < this.length; x++){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return this;
+    }
 }
 
 
@@ -128,9 +170,11 @@ list.push(100);
 list.push(201);
 list.push(250);
 list.push(350);
-list.insert(0, "FIRST");
-list.insert(5, "LAST");
+list.push("beans");
+list.push("yoyo");
+list.push(35);
+list.push(312);
 
-var fourthIDX = list.get(4)
+list.reverse();
 
-console.log(fourthIDX);
+console.log(list.print());
